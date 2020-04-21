@@ -16,8 +16,22 @@ app.get('/', (request, response) => {
   response.send('I love CodersX');
 });
 
-app.get('/todos',(req,res) =>{
-  res.render('index.pug')
+// app.get('/todos',(req,res) =>{
+//   res.render('index.pug', {
+//     todoLists: todoLists
+//   });
+// });
+
+var todoLists = ['Đi Chợ', 'Nấu Cơm', 'Rửa Bát', 'Học Code tại CodersX'];
+
+app.get('/todos', function(req,res){
+  var q = req.query.q;
+  var matchedTodo = todoLists.filter(function(todo){
+    return todo.toLowerCase().indexOf(q.toLowerCase()) !== -1;
+  });
+  res.render('index.pug', {
+    todoLists: matchedTodo
+  });
 });
 
 
