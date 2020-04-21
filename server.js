@@ -7,12 +7,17 @@ const express = require('express');
 const app = express();
 
 // https://expressjs.com/en/starter/basic-routing.html
+
+
+app.set('views', './views'); 
+app.set('view engine', 'pug');
+
 app.get('/', (request, response) => {
   response.send('I love CodersX');
 });
 
-app.get('/todos', (req, res) => {
-  res.send('<ul><li>Di Cho</li><li>Nau Com</li><li>Rua Bat</li><li>Hoc Code tai CodersX</li></ul>');        
+app.get('/todos',(req,res) =>{
+  res.render('index.pug')
 });
 
 
