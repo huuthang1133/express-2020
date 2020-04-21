@@ -12,6 +12,9 @@ const app = express();
 app.set('views', './views'); 
 app.set('view engine', 'pug');
 
+app.use(express.json()) // for parsing application/json
+app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+
 var todoLists = ['Đi Chợ', 'Nấu Cơm', 'Rửa Bát', 'Học Code tại CodersX'];
 
 app.get('/', (request, response) => {
@@ -36,9 +39,12 @@ app.get('/todos/search', function(req,res){
 });
 
 app.post('/todos/create', function(req,res){
+  todoLists.push(req.body.todo);
+  res.redirect('/todos');
+})
+app.get('/todos/create', function(req,res){
   res.render('create.pug')
 });
-
 
 // listen for requests :)
 app.listen(process.env.PORT, () => {
