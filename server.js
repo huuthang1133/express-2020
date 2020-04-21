@@ -12,19 +12,20 @@ const app = express();
 app.set('views', './views'); 
 app.set('view engine', 'pug');
 
+var todoLists = ['Đi Chợ', 'Nấu Cơm', 'Rửa Bát', 'Học Code tại CodersX'];
+
 app.get('/', (request, response) => {
   response.send('I love CodersX');
 });
 
-// app.get('/todos',(req,res) =>{
-//   res.render('index.pug', {
-//     todoLists: todoLists
-//   });
-// });
+app.get('/todos',(req,res) =>{
+  res.render('index.pug', {
+    todoLists: todoLists
+  });
+});
 
-var todoLists = ['Đi Chợ', 'Nấu Cơm', 'Rửa Bát', 'Học Code tại CodersX'];
 
-app.get('/todos', function(req,res){
+app.get('/todos/search', function(req,res){
   var q = req.query.q;
   var matchedTodo = todoLists.filter(function(todo){
     return todo.toLowerCase().indexOf(q.toLowerCase()) !== -1;
@@ -32,6 +33,10 @@ app.get('/todos', function(req,res){
   res.render('index.pug', {
     todoLists: matchedTodo
   });
+});
+
+app.post('/todos/create', function(req,res){
+  res.render('create.pug')
 });
 
 

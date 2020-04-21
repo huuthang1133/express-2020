@@ -1,4 +1,7 @@
 h1  Todo List
+  form(action="/todos/search", method="GET")
+    input(type="text", name="q")
+    button Search
   ul
     each todoList in todoLists
       li= todoList
